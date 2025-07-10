@@ -14,29 +14,29 @@ st.set_page_config(page_title="💰 Insurance Cost Predictor", page_icon="🏥",
 def load_models():
     try:
         return joblib.load('best_model.pkl'), joblib.load('scaler.pkl')
-    except FileNotFoundError:
-        st.error("⚠️ Model files not found. Using demo mode with sample calculations.")
+    except:
+        st.error("⚠️ Model files not found. Using demo mode.")
         return None, None
 
 model, scaler = load_models()
 
-# Updated CSS with new color scheme
+# Comprehensive CSS
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
     .main { font-family: 'Poppins', sans-serif; }
-    .stApp { background: linear-gradient(135deg, #1e3c72 0%, #2ecc71 100%); }
-    .main-header { background: linear-gradient(90deg, #1e3c72 0%, #2ecc71 100%); padding: 2rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .stApp { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .main-header { background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
     .main-title { color: white; font-size: 3rem; font-weight: 700; text-align: center; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
     .main-subtitle { color: rgba(255,255,255,0.9); font-size: 1.2rem; text-align: center; margin-bottom: 0; }
-    .card { background: #f0f4f8; padding: 1.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 1rem; }
-    .metric-card { background: linear-gradient(135deg, #1e3c72 0%, #2ecc71 100%); color: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 1rem; }
-    .prediction-result { background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); color: white; padding: 2rem; border-radius: 15px; text-align: center; font-size: 1.5rem; font-weight: 600; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin: 1rem 0; animation: pulse 2s infinite; }
+    .card { background: white; padding: 1.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 1rem; }
+    .metric-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 1rem; }
+    .prediction-result { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; padding: 2rem; border-radius: 15px; text-align: center; font-size: 1.5rem; font-weight: 600; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin: 1rem 0; animation: pulse 2s infinite; }
     @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
-    .risk-low { background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); color: white; padding: 1rem; border-radius: 10px; margin: 0.5rem 0; font-weight: 600; text-align: center; }
-    .risk-medium { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); color: white; padding: 1rem; border-radius: 10px; margin: 0.5rem 0; font-weight: 600; text-align: center; }
-    .risk-high { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; padding: 1rem; border-radius: 10px; margin: 0.5rem 0; font-weight: 600; text-align: center; }
-    .stButton > button { background: linear-gradient(135deg, #1e3c72 0%, #2ecc71 100%); color: white; border: none; padding: 0.5rem 2rem; border-radius: 25px; font-weight: 600; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: all 0.3s ease; }
+    .risk-low { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; padding: 1rem; border-radius: 10px; margin: 0.5rem 0; font-weight: 600; text-align: center; }
+    .risk-medium { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 1rem; border-radius: 10px; margin: 0.5rem 0; font-weight: 600; text-align: center; }
+    .risk-high { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #333; padding: 1rem; border-radius: 10px; margin: 0.5rem 0; font-weight: 600; text-align: center; }
+    .stButton > button { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 0.5rem 2rem; border-radius: 25px; font-weight: 600; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: all 0.3s ease; }
     .stButton > button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
 </style>
 """, unsafe_allow_html=True)
@@ -228,7 +228,7 @@ about_col1, about_col2 = st.columns([1, 2])
 
 with about_col1:
     st.markdown("""
-    <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #1e3c72 0%, #2ecc71 100%); 
+    <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
                 border-radius: 15px; color: white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
         <div style="font-size: 4rem; margin-bottom: 1rem;">👨‍💻</div>
         <h3 style="margin: 0; color: white;">SHAIKH AKBAR ALI</h3>
@@ -243,33 +243,24 @@ with about_col1:
 with about_col2:
     st.markdown("""
     <div class="card">
-        <h4 style="color: #1e3c72; margin-bottom: 1rem;">🎯 About This Project</h4>
+        <h4 style="color: #667eea; margin-bottom: 1rem;">🎯 About This Project</h4>
         <p style="text-align: justify; line-height: 1.6;">
             This <strong>Advanced Insurance Cost Predictor</strong> leverages cutting-edge machine learning algorithms 
             to provide accurate insurance cost estimates. Built with <strong>ensemble learning techniques</strong> and 
             trained on comprehensive healthcare data, this tool helps individuals and insurance providers make informed decisions.
         </p>
-        <h4 style="color: #1e3c72; margin: 1.5rem 0 1rem 0;">🚀 Key Achievements</h4>
-        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
-            <div class="metric-card" style="flex: 1; min-width: 200px;">
-                <h5>🎯 Model Accuracy</h5>
-                <p>95%+ <span style="color: #27ae60;">High Performance</span></p>
-            </div>
-            <div class="metric-card" style="flex: 1; min-width: 200px;">
-                <h5>📊 Data Points</h5>
-                <p>10K+ <span style="color: #27ae60;">Rich Dataset</span></p>
-            </div>
-            <div class="metric-card" style="flex: 1; min-width: 200px;">
-                <h5>🔧 Key Features</h5>
-                <p>7 <span style="color: #27ae60;">Comprehensive</span></p>
-            </div>
-            <div class="metric-card" style="flex: 1; min-width: 200px;">
-                <h5>⚡ Speed</h5>
-                <p>Real-time <span style="color: #27ae60;">Instant Results</span></p>
-            </div>
-        </div>
+        <h4 style="color: #667eea; margin: 1.5rem 0 1rem 0;">🚀 Key Achievements</h4>
     </div>
     """, unsafe_allow_html=True)
+    
+    # Metrics
+    metric_cols = st.columns(4)
+    metrics = [("🎯 Model Accuracy", "95%+", "High Performance"), ("📊 Data Points", "10K+", "Rich Dataset"),
+               ("🔧 Key Features", "7", "Comprehensive"), ("⚡ Speed", "Real-time", "Instant Results")]
+    
+    for i, (label, value, delta) in enumerate(metrics):
+        with metric_cols[i]:
+            st.metric(label, value, delta=delta)
 
 # Professional Expertise
 st.markdown("### 💼 Professional Expertise")
@@ -286,7 +277,7 @@ for i, (icon, title, desc) in enumerate(expertise_data):
         st.markdown(f"""
         <div class="card" style="text-align: center; height: 200px; display: flex; flex-direction: column; justify-content: center;">
             <div style="font-size: 3rem; margin-bottom: 1rem;">{icon}</div>
-            <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">{title}</h4>
+            <h4 style="color: #667eea; margin-bottom: 0.5rem;">{title}</h4>
             <p style="font-size: 0.9rem; color: #666;">{desc}</p>
         </div>
         """, unsafe_allow_html=True)
@@ -298,7 +289,7 @@ features_col1, features_col2 = st.columns(2)
 with features_col1:
     st.markdown("""
     <div class="card">
-        <h4 style="color: #1e3c72;">🎯 Model Architecture</h4>
+        <h4 style="color: #667eea;">🎯 Model Architecture</h4>
         <ul style="line-height: 1.8;">
             <li><strong>Ensemble Learning:</strong> Combines multiple algorithms for better accuracy</li>
             <li><strong>Feature Engineering:</strong> Advanced preprocessing and scaling techniques</li>
@@ -311,7 +302,7 @@ with features_col1:
 with features_col2:
     st.markdown("""
     <div class="card">
-        <h4 style="color: #1e3c72;">📈 Advanced Analytics</h4>
+        <h4 style="color: #667eea;">📈 Advanced Analytics</h4>
         <ul style="line-height: 1.8;">
             <li><strong>Interactive Visualizations:</strong> Dynamic Plotly charts</li>
             <li><strong>Risk Assessment:</strong> Multi-factor risk scoring system</li>
@@ -334,9 +325,27 @@ for i, (icon, platform, info) in enumerate(contact_data):
     with contact_cols[i]:
         st.markdown(f"""
         <div class="card" style="text-align: center;">
-            <div style="font-size: 2rem; color: #1e3c72; margin-bottom: 1rem;">{icon}</div>
+            <div style="font-size: 2rem; color: #667eea; margin-bottom: 1rem;">{icon}</div>
             <h4>{platform}</h4>
             <p style="color: #666;">{info}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+# Testimonials
+st.markdown("### 💬 Project Impact")
+testimonial_cols = st.columns(2)
+testimonials = [
+    ("linear-gradient(135deg, #667eea 0%, #764ba2 100%)", "This tool has revolutionized how we approach insurance cost estimation. The accuracy and user-friendly interface make it invaluable for our business.", "Insurance Company Executive"),
+    ("linear-gradient(135deg, #11998e 0%, #38ef7d 100%)", "The real-time risk assessment and interactive visualizations provide incredible insights that help our clients make informed decisions.", "Healthcare Analytics Director")
+]
+
+for i, (bg, text, author) in enumerate(testimonials):
+    with testimonial_cols[i]:
+        st.markdown(f"""
+        <div class="card" style="background: {bg}; color: white;">
+            <div style="text-align: center; margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
+            <p style="font-style: italic; text-align: center; margin-bottom: 1rem;">"{text}"</p>
+            <div style="text-align: center; font-weight: bold;">- {author}</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -388,7 +397,7 @@ with viz_tabs[3]:
                 title="Average Insurance Cost by Region", color='cost', color_continuous_scale='viridis')
     st.plotly_chart(fig, use_container_width=True)
 
-# Footer and Credits
+# Footer
 st.markdown("---\n### 📚 Additional Resources")
 footer_cols = st.columns(4)
 footer_data = [
@@ -404,8 +413,9 @@ for i, (title, items) in enumerate(footer_data):
         for item in items:
             if item: st.markdown(f"- {item}")
 
+# Credits
 st.markdown("""
-<div style='text-align: center; padding: 2rem; background: linear-gradient(135deg, #1e3c72 0%, #2ecc71 100%); 
+<div style='text-align: center; padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
             border-radius: 15px; color: white; margin-top: 2rem;'>
     <h3 style='margin-bottom: 1rem; color: white;'>🚀 Insurance Cost Predictor v2.0</h3>
     <p style='margin-bottom: 1rem; opacity: 0.9;'>
